@@ -37,5 +37,22 @@ namespace Dungeons_Databases.Data
             var result = await _sessionStorage.GetAsync<UserModel>(CURRENT_USER_SESS_KEY);
             return result.Value;
         }
+
+        protected async Task RefreshUserInSessionAsync()
+        {
+            var currUser = await GetCurrentUserAsync();
+            if (currUser == null)
+                return;
+            currUser.Adventurer = _dbService.Get<AdventurerModel>(GET_ADVENTURER_OF_USER, new { currUser.UserId });
+            await UpdateUserInSessionAsync(currUser);
+        }
+
+        #region Queries
+
+        private const string GET_ADVENTURER_OF_USER = @"
+SELECT * FROM adventurer
+WHERE user_id=@UserId;
+";
+        #endregion
     }
 }

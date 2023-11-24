@@ -34,7 +34,7 @@
 	</div>
 
 	<div>
-		<label>Strength</label>
+		<label>Dexterity</label>
 		<div class="skill-points">
 			<button class="btn btn-danger" @onclick="RemoveDexterity">-</button>
 			<div>@adventurerModel.Dexterity</div>
@@ -61,7 +61,7 @@
 	</div>
 </div>
 
-@if (startRemainingPoints.HasValue && startRemainingPoints.Value != adventurerModel.RemainingSkillPoints)
+@if (buttonAppearOnChange.HasValue && buttonAppearOnChange.Value && valueChanged)
 {
 	<button class="btn btn-primary" @onclick="UpdateAdventurer">Save changes</button>
 }
@@ -72,7 +72,8 @@
 	public AdventurerModel adventurerModel { get; set; }
 
 	[Parameter]
-	public int? startRemainingPoints { get; set; }
+	public bool? buttonAppearOnChange { get; set; }
+	private bool valueChanged = false;
 
 
 
@@ -88,13 +89,16 @@
 		if (adventurerModel.MaxHealth > 5)
 		{
 			adventurerModel.MaxHealth -= 5;
+			valueChanged = true;
 		}
+
 	}
 	private void AddHealth()
 	{
 		if (adventurerModel.RemainingSkillPoints > 0 && adventurerModel.MaxHealth < 50)
 		{
 			adventurerModel.MaxHealth += 5;
+			valueChanged = true;
 		}
 	}
 
@@ -103,6 +107,7 @@
 		if (adventurerModel.Strength > 1)
 		{
 			adventurerModel.Strength--;
+			valueChanged = true;
 		}
 	}
 	private void AddStrength()
@@ -110,6 +115,7 @@
 		if (adventurerModel.RemainingSkillPoints > 0 && adventurerModel.Strength < 10)
 		{
 			adventurerModel.Strength++;
+			valueChanged = true;
 		}
 	}
 
@@ -118,6 +124,7 @@
 		if (adventurerModel.Ether > 1)
 		{
 			adventurerModel.Ether--;
+			valueChanged = true;
 		}
 	}
 	private void AddEther()
@@ -125,6 +132,7 @@
 		if (adventurerModel.RemainingSkillPoints > 0 && adventurerModel.Ether < 10)
 		{
 			adventurerModel.Ether++;
+			valueChanged = true;
 		}
 	}
 
@@ -133,6 +141,7 @@
 		if (adventurerModel.Dexterity > 1)
 		{
 			adventurerModel.Dexterity--;
+			valueChanged = true;
 		}
 	}
 	private void AddDexterity()
@@ -140,6 +149,7 @@
 		if (adventurerModel.RemainingSkillPoints > 0 && adventurerModel.Dexterity < 10)
 		{
 			adventurerModel.Dexterity++;
+			valueChanged = true;
 		}
 	}
 
@@ -148,6 +158,7 @@
 		if (adventurerModel.Agility > 1)
 		{
 			adventurerModel.Agility--;
+			valueChanged = true;
 		}
 	}
 	private void AddAgility()
@@ -155,6 +166,7 @@
 		if (adventurerModel.RemainingSkillPoints > 0 && adventurerModel.Agility < 10)
 		{
 			adventurerModel.Agility++;
+			valueChanged = true;
 		}
 	}
 
@@ -163,6 +175,7 @@
 		if (adventurerModel.Charisma > 1)
 		{
 			adventurerModel.Charisma--;
+			valueChanged = true;
 		}
 	}
 	private void AddCharisma()
@@ -170,6 +183,7 @@
 		if (adventurerModel.RemainingSkillPoints > 0 && adventurerModel.Charisma < 10)
 		{
 			adventurerModel.Charisma++;
+			valueChanged = true;
 		}
 	}
 

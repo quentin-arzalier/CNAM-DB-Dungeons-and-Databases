@@ -44,12 +44,16 @@ build_metadata.AdditionalFiles.CssScope =
 build_metadata.AdditionalFiles.TargetPath = UGFnZXNcQWR2ZW50dXJlclxTa2lsbEdyaWQucmF6b3I=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/quent/source/repos/Dungeons&Databases/Dungeons&Databases/Pages/Counter.razor]
-build_metadata.AdditionalFiles.TargetPath = UGFnZXNcQ291bnRlci5yYXpvcg==
-build_metadata.AdditionalFiles.CssScope = 
-
 [C:/Users/quent/source/repos/Dungeons&Databases/Dungeons&Databases/Pages/Index.razor]
 build_metadata.AdditionalFiles.TargetPath = UGFnZXNcSW5kZXgucmF6b3I=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/quent/source/repos/Dungeons&Databases/Dungeons&Databases/Pages/QuestList.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcUXVlc3RMaXN0LnJhem9y
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/quent/source/repos/Dungeons&Databases/Dungeons&Databases/Pages/TrinketPouch.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcVHJpbmtldFBvdWNoLnJhem9y
 build_metadata.AdditionalFiles.CssScope = 
 
 [C:/Users/quent/source/repos/Dungeons&Databases/Dungeons&Databases/Shared/SurveyPrompt.razor]

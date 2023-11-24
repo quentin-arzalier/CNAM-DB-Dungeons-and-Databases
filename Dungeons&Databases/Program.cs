@@ -18,7 +18,7 @@ namespace Dungeons_Databases
 			// Add services here
             builder.Services.AddSingleton<DatabaseService>();
 
-            builder.Services.AddSingleton<TrinketService>();
+            builder.Services.AddScoped<TrinketService>();
             builder.Services.AddScoped<AccessoryService>();
             builder.Services.AddScoped<UserService>();
             builder.Services.AddScoped<AdventurerService>();

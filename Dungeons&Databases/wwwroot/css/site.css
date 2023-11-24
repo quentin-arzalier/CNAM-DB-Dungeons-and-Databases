@@ -107,6 +107,47 @@ a, .btn-link {
     font-weight: bold;
 }
 
+.trinket-grid {
+    display: grid;
+    justify-items: stretch;
+    gap: 10px 5px;
+    grid-template-columns: 24% 24% 24% 24%;
+}
+
+.trinket-item {
+    text-align: center;
+    background-color: lightblue;
+    border-radius: 20px;
+    padding: 10px;
+}
+
+
+.quest-grid {
+    display: grid;
+    justify-items: stretch;
+    gap: 10px 5px;
+    grid-template-columns: 24% 24% 24% 24%;
+}
+
+.quest-item {
+    display: flex;
+    flex-direction: column;
+    background-color: lightblue;
+    border-radius: 20px;
+    padding: 10px;
+    justify-content: space-between;
+}
+
+.quest-item-description {
+    display: flex;
+    flex-direction: column;
+}
+
+.quest-item-description > span:first-child {
+    font-weight: bold;
+    text-align: center;
+}
+
 .validations > .valid {
     color: forestgreen;
 }

@@ -12,12 +12,11 @@
 <h3>Description</h3>
 <p>@adventurer.Description</p>
 
-<SkillGrid adventurerModel="@adventurer" startRemainingPoints="@startRemainingPoints" />
+<SkillGrid adventurerModel="@adventurer" buttonAppearOnChange="@true" />
 
 
 @code {
 	private AdventurerModel adventurer = new();
-	private int startRemainingPoints;
 
 	protected override async Task OnInitializedAsync()
 	{
@@ -29,7 +28,6 @@
 		else
 		{
 			adventurer = potentialAdventurer;
-			startRemainingPoints = adventurer.RemainingSkillPoints;
 		}
 	}
 }
