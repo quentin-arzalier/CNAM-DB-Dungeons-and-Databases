@@ -47,7 +47,7 @@ CREATE TABLE adventurer
    dexterity INTEGER NOT NULL DEFAULT 1 CHECK (dexterity > 0 AND dexterity <= 10),
    agility INTEGER NOT NULL DEFAULT 1 CHECK (agility > 0 AND agility <= 10),
    charisma INTEGER NOT NULL DEFAULT 1 CHECK (charisma > 0 AND charisma <= 10),
-   gold INTEGER NOT NULL DEFAULT 0 CHECK (gold > 0),
+   gold INTEGER NOT NULL DEFAULT 0 CHECK (gold >= 0),
    CHECK(strength + ether + dexterity + agility + charisma + ((max_health-5)/5) - 10 <= (10+ (LEVEL-1)*4)),
    FOREIGN KEY (weapon_id) REFERENCES weapon,
    FOREIGN KEY (user_id) REFERENCES dndb_user,
