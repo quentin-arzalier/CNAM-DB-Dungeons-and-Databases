@@ -1,0 +1,176 @@
+﻿@using Dungeons_Databases.Data;
+@using Dungeons_Databases.Models.Entities;
+@inject AdventurerService adventurerService
+@inject NavigationManager navManager
+
+<p>Remaining skill points to spend : <strong>@adventurerModel.RemainingSkillPoints</strong></p>
+
+<div class="skill-grid">
+	<div>
+		<label>Max health</label>
+		<div class="skill-points">
+			<button class="btn btn-danger" @onclick="RemoveHealth">-</button>
+			<div>@adventurerModel.MaxHealth</div>
+			<button class="btn btn-success" @onclick="AddHealth">+</button>
+		</div>
+	</div>
+
+	<div>
+		<label>Strength</label>
+		<div class="skill-points">
+			<button class="btn btn-danger" @onclick="RemoveStrength">-</button>
+			<div>@adventurerModel.Strength</div>
+			<button class="btn btn-success" @onclick="AddStrength">+</button>
+		</div>
+	</div>
+
+	<div>
+		<label>Ether</label>
+		<div class="skill-points">
+			<button class="btn btn-danger" @onclick="RemoveEther">-</button>
+			<div>@adventurerModel.Ether</div>
+			<button class="btn btn-success" @onclick="AddEther">+</button>
+		</div>
+	</div>
+
+	<div>
+		<label>Strength</label>
+		<div class="skill-points">
+			<button class="btn btn-danger" @onclick="RemoveDexterity">-</button>
+			<div>@adventurerModel.Dexterity</div>
+			<button class="btn btn-success" @onclick="AddDexterity">+</button>
+		</div>
+	</div>
+
+	<div>
+		<label>Agility</label>
+		<div class="skill-points">
+			<button class="btn btn-danger" @onclick="RemoveAgility">-</button>
+			<div>@adventurerModel.Agility</div>
+			<button class="btn btn-success" @onclick="AddAgility">+</button>
+		</div>
+	</div>
+
+	<div>
+		<label>Charisma</label>
+		<div class="skill-points">
+			<button class="btn btn-danger" @onclick="RemoveCharisma">-</button>
+			<div>@adventurerModel.Charisma</div>
+			<button class="btn btn-success" @onclick="AddCharisma">+</button>
+		</div>
+	</div>
+</div>
+
+@if (startRemainingPoints.HasValue && startRemainingPoints.Value != adventurerModel.RemainingSkillPoints)
+{
+	<button class="btn btn-primary" @onclick="UpdateAdventurer">Save changes</button>
+}
+
+@code {
+	// Demonstrates how a parent component can supply parameters
+	[Parameter]
+	public AdventurerModel adventurerModel { get; set; }
+
+	[Parameter]
+	public int? startRemainingPoints { get; set; }
+
+
+
+	private async Task UpdateAdventurer()
+	{
+		await adventurerService.UpdateAdventurerAsync(adventurerModel);
+		navManager.NavigateTo("/adventurer/self", true);
+	}
+
+
+	private void RemoveHealth()
+	{
+		if (adventurerModel.MaxHealth > 5)
+		{
+			adventurerModel.MaxHealth -= 5;
+		}
+	}
+	private void AddHealth()
+	{
+		if (adventurerModel.RemainingSkillPoints > 0 && adventurerModel.MaxHealth < 50)
+		{
+			adventurerModel.MaxHealth += 5;
+		}
+	}
+
+	private void RemoveStrength()
+	{
+		if (adventurerModel.Strength > 1)
+		{
+			adventurerModel.Strength--;
+		}
+	}
+	private void AddStrength()
+	{
+		if (adventurerModel.RemainingSkillPoints > 0 && adventurerModel.Strength < 10)
+		{
+			adventurerModel.Strength++;
+		}
+	}
+
+	private void RemoveEther()
+	{
+		if (adventurerModel.Ether > 1)
+		{
+			adventurerModel.Ether--;
+		}
+	}
+	private void AddEther()
+	{
+		if (adventurerModel.RemainingSkillPoints > 0 && adventurerModel.Ether < 10)
+		{
+			adventurerModel.Ether++;
+		}
+	}
+
+	private void RemoveDexterity()
+	{
+		if (adventurerModel.Dexterity > 1)
+		{
+			adventurerModel.Dexterity--;
+		}
+	}
+	private void AddDexterity()
+	{
+		if (adventurerModel.RemainingSkillPoints > 0 && adventurerModel.Dexterity < 10)
+		{
+			adventurerModel.Dexterity++;
+		}
+	}
+
+	private void RemoveAgility()
+	{
+		if (adventurerModel.Agility > 1)
+		{
+			adventurerModel.Agility--;
+		}
+	}
+	private void AddAgility()
+	{
+		if (adventurerModel.RemainingSkillPoints > 0 && adventurerModel.Agility < 10)
+		{
+			adventurerModel.Agility++;
+		}
+	}
+
+	private void RemoveCharisma()
+	{
+		if (adventurerModel.Charisma > 1)
+		{
+			adventurerModel.Charisma--;
+		}
+	}
+	private void AddCharisma()
+	{
+		if (adventurerModel.RemainingSkillPoints > 0 && adventurerModel.Charisma < 10)
+		{
+			adventurerModel.Charisma++;
+		}
+	}
+
+}

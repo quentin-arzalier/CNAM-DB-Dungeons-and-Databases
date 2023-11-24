@@ -1,0 +1,42 @@
+version: "3.8"
+
+services:
+  dungeonsdatabases:
+    image: ${DOCKER_REGISTRY-}dungeonsdatabases
+    build:
+      context: .
+      dockerfile: ./Dungeons&Databases/Dockerfile
+    networks:
+      - dungeons-and-databases-network
+    depends_on:
+      dungeons-and-databases-db:
+        condition: service_healthy
+
+  dungeons-and-databases-db:
+    image: postgres:latest
+    container_name: dungeons-and-databases-db
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=passw0rd!
+      - POSTGRES_DB=postgres
+    expose:
+      - 5432
+    ports:
+      - 5433:5432
+    networks:
+      - dungeons-and-databases-network
+    volumes:
+      - ./Dungeons&Databases/SqlScripts/:/docker-entrypoint-initdb.d/
+      - pg_data:/var/lib/postgresql/data
+    healthcheck:
+      test: [ "CMD-SHELL", "pg_isready" ]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+networks:
+  dungeons-and-databases-network:
+    driver: bridge
+
+volumes:
+  pg_data:

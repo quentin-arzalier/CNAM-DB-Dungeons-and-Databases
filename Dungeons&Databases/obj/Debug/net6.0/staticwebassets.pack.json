@@ -1,0 +1,217 @@
+{
+  "Files": [
+    {
+      "Id": "C:\\Users\\quent\\source\\repos\\Dungeons&Databases\\Dungeons&Databases\\obj\\Debug\\net6.0\\scopedcss\\projectbundle\\Dungeons&Databases.bundle.scp.css",
+      "PackagePath": "staticwebassets\\Dungeons&Databases.bundle.scp.css"
+    },
+    {
+      "Id": "C:\\Users\\quent\\source\\repos\\Dungeons&Databases\\Dungeons&Databases\\wwwroot\\css\\bootstrap\\bootstrap.min.css",
+      "PackagePath": "staticwebassets\\css\\bootstrap\\bootstrap.min.css"
+    },
+    {
+      "Id": "C:\\Users\\quent\\source\\repos\\Dungeons&Databases\\Dungeons&Databases\\wwwroot\\css\\bootstrap\\bootstrap.min.css.map",
+      "PackagePath": "staticwebassets\\css\\bootstrap\\bootstrap.min.css.map"
+    },
+    {
+      "Id": "C:\\Users\\quent\\source\\repos\\Dungeons&Databases\\Dungeons&Databases\\wwwroot\\css\\open-iconic\\FONT-LICENSE",
+      "PackagePath": "staticwebassets\\css\\open-iconic"
+    },
+    {
+      "Id": "C:\\Users\\quent\\source\\repos\\Dungeons&Databases\\Dungeons&Databases\\wwwroot\\css\\open-iconic\\ICON-LICENSE",
+      "PackagePath": "staticwebassets\\css\\open-iconic"
+    },
+    {
+      "Id": "C:\\Users\\quent\\source\\repos\\Dungeons&Databases\\Dungeons&Databases\\wwwroot\\css\\open-iconic\\README.md",
+      "PackagePath": "staticwebassets\\css\\open-iconic\\README.md"
+    },
+    {
+      "Id": "C:\\Users\\quent\\source\\repos\\Dungeons&Databases\\Dungeons&Databases\\wwwroot\\css\\open-iconic\\font\\css\\open-iconic-bootstrap.min.css",
+      "PackagePath": "staticwebassets\\css\\open-iconic\\font\\css\\open-iconic-bootstrap.min.css"
+    },
+    {
+      "Id": "C:\\Users\\quent\\source\\repos\\Dungeons&Databases\\Dungeons&Databases\\wwwroot\\css\\open-iconic\\font\\fonts\\open-iconic.eot",
+      "PackagePath": "staticwebassets\\css\\open-iconic\\font\\fonts\\open-iconic.eot"
+    },
+    {
+      "Id": "C:\\Users\\quent\\source\\repos\\Dungeons&Databases\\Dungeons&Databases\\wwwroot\\css\\open-iconic\\font\\fonts\\open-iconic.otf",
+      "PackagePath": "staticwebassets\\css\\open-iconic\\font\\fonts\\open-iconic.otf"
+    },
+    {
+      "Id": "C:\\Users\\quent\\source\\repos\\Dungeons&Databases\\Dungeons&Databases\\wwwroot\\css\\open-iconic\\font\\fonts\\open-iconic.svg",
+      "PackagePath": "staticwebassets\\css\\open-iconic\\font\\fonts\\open-iconic.svg"
+    },
+    {
+      "Id": "C:\\Users\\quent\\source\\repos\\Dungeons&Databases\\Dungeons&Databases\\wwwroot\\css\\open-iconic\\font\\fonts\\open-iconic.ttf",
+      "PackagePath": "staticwebassets\\css\\open-iconic\\font\\fonts\\open-iconic.ttf"
+    },
+    {
+      "Id": "C:\\Users\\quent\\source\\repos\\Dungeons&Databases\\Dungeons&Databases\\wwwroot\\css\\open-iconic\\font\\fonts\\open-iconic.woff",
+      "PackagePath": "staticwebassets\\css\\open-iconic\\font\\fonts\\open-iconic.woff"
+    },
+    {
+      "Id": "C:\\Users\\quent\\source\\repos\\Dungeons&Databases\\Dungeons&Databases\\wwwroot\\css\\site.css",
+      "PackagePath": "staticwebassets\\css\\site.css"
+    },
+    {
+      "Id": "C:\\Users\\quent\\source\\repos\\Dungeons&Databases\\Dungeons&Databases\\wwwroot\\favicon.ico",
+      "PackagePath": "staticwebassets\\favicon.ico"
+    },
+    {
+      "Id": "C:\\Users\\quent\\source\\repos\\Dungeons&Databases\\Dungeons&Databases\\wwwroot\\fontawesome-free-6.4.2-web.zip",
+      "PackagePath": "staticwebassets\\fontawesome-free-6.4.2-web.zip"
+    },
+    {
+      "Id": "C:\\Users\\quent\\source\\repos\\Dungeons&Databases\\Dungeons&Databases\\wwwroot\\fontawesome\\css\\all.css",
+      "PackagePath": "staticwebassets\\fontawesome\\css\\all.css"
+    },
+    {
+      "Id": "C:\\Users\\quent\\source\\repos\\Dungeons&Databases\\Dungeons&Databases\\wwwroot\\fontawesome\\css\\all.min.css",
+      "PackagePath": "staticwebassets\\fontawesome\\css\\all.min.css"
+    },
+    {
+      "Id": "C:\\Users\\quent\\source\\repos\\Dungeons&Databases\\Dungeons&Databases\\wwwroot\\fontawesome\\css\\brands.css",
+      "PackagePath": "staticwebassets\\fontawesome\\css\\brands.css"
+    },
+    {
+      "Id": "C:\\Users\\quent\\source\\repos\\Dungeons&Databases\\Dungeons&Databases\\wwwroot\\fontawesome\\css\\brands.min.css",
+      "PackagePath": "staticwebassets\\fontawesome\\css\\brands.min.css"
+    },
+    {
+      "Id": "C:\\Users\\quent\\source\\repos\\Dungeons&Databases\\Dungeons&Databases\\wwwroot\\fontawesome\\css\\fontawesome.css",
+      "PackagePath": "staticwebassets\\fontawesome\\css\\fontawesome.css"
+    },
+    {
+      "Id": "C:\\Users\\quent\\source\\repos\\Dungeons&Databases\\Dungeons&Databases\\wwwroot\\fontawesome\\css\\fontawesome.min.css",
+      "PackagePath": "staticwebassets\\fontawesome\\css\\fontawesome.min.css"
+    },
+    {
+      "Id": "C:\\Users\\quent\\source\\repos\\Dungeons&Databases\\Dungeons&Databases\\wwwroot\\fontawesome\\css\\regular.css",
+      "PackagePath": "staticwebassets\\fontawesome\\css\\regular.css"
+    },
+    {
+      "Id": "C:\\Users\\quent\\source\\repos\\Dungeons&Databases\\Dungeons&Databases\\wwwroot\\fontawesome\\css\\regular.min.css",
+      "PackagePath": "staticwebassets\\fontawesome\\css\\regular.min.css"
+    },
+    {
+      "Id": "C:\\Users\\quent\\source\\repos\\Dungeons&Databases\\Dungeons&Databases\\wwwroot\\fontawesome\\css\\solid.css",
+      "PackagePath": "staticwebassets\\fontawesome\\css\\solid.css"
+    },
+    {
+      "Id": "C:\\Users\\quent\\source\\repos\\Dungeons&Databases\\Dungeons&Databases\\wwwroot\\fontawesome\\css\\solid.min.css",
+      "PackagePath": "staticwebassets\\fontawesome\\css\\solid.min.css"
+    },
+    {
+      "Id": "C:\\Users\\quent\\source\\repos\\Dungeons&Databases\\Dungeons&Databases\\wwwroot\\fontawesome\\css\\svg-with-js.css",
+      "PackagePath": "staticwebassets\\fontawesome\\css\\svg-with-js.css"
+    },
+    {
+      "Id": "C:\\Users\\quent\\source\\repos\\Dungeons&Databases\\Dungeons&Databases\\wwwroot\\fontawesome\\css\\svg-with-js.min.css",
+      "PackagePath": "staticwebassets\\fontawesome\\css\\svg-with-js.min.css"
+    },
+    {
+      "Id": "C:\\Users\\quent\\source\\repos\\Dungeons&Databases\\Dungeons&Databases\\wwwroot\\fontawesome\\css\\v4-font-face.css",
+      "PackagePath": "staticwebassets\\fontawesome\\css\\v4-font-face.css"
+    },
+    {
+      "Id": "C:\\Users\\quent\\source\\repos\\Dungeons&Databases\\Dungeons&Databases\\wwwroot\\fontawesome\\css\\v4-font-face.min.css",
+      "PackagePath": "staticwebassets\\fontawesome\\css\\v4-font-face.min.css"
+    },
+    {
+      "Id": "C:\\Users\\quent\\source\\repos\\Dungeons&Databases\\Dungeons&Databases\\wwwroot\\fontawesome\\css\\v4-shims.css",
+      "PackagePath": "staticwebassets\\fontawesome\\css\\v4-shims.css"
+    },
+    {
+      "Id": "C:\\Users\\quent\\source\\repos\\Dungeons&Databases\\Dungeons&Databases\\wwwroot\\fontawesome\\css\\v4-shims.min.css",
+      "PackagePath": "staticwebassets\\fontawesome\\css\\v4-shims.min.css"
+    },
+    {
+      "Id": "C:\\Users\\quent\\source\\repos\\Dungeons&Databases\\Dungeons&Databases\\wwwroot\\fontawesome\\css\\v5-font-face.css",
+      "PackagePath": "staticwebassets\\fontawesome\\css\\v5-font-face.css"
+    },
+    {
+      "Id": "C:\\Users\\quent\\source\\repos\\Dungeons&Databases\\Dungeons&Databases\\wwwroot\\fontawesome\\css\\v5-font-face.min.css",
+      "PackagePath": "staticwebassets\\fontawesome\\css\\v5-font-face.min.css"
+    },
+    {
+      "Id": "C:\\Users\\quent\\source\\repos\\Dungeons&Databases\\Dungeons&Databases\\wwwroot\\fontawesome\\webfonts\\fa-brands-400.ttf",
+      "PackagePath": "staticwebassets\\fontawesome\\webfonts\\fa-brands-400.ttf"
+    },
+    {
+      "Id": "C:\\Users\\quent\\source\\repos\\Dungeons&Databases\\Dungeons&Databases\\wwwroot\\fontawesome\\webfonts\\fa-brands-400.woff2",
+      "PackagePath": "staticwebassets\\fontawesome\\webfonts\\fa-brands-400.woff2"
+    },
+    {
+      "Id": "C:\\Users\\quent\\source\\repos\\Dungeons&Databases\\Dungeons&Databases\\wwwroot\\fontawesome\\webfonts\\fa-regular-400.ttf",
+      "PackagePath": "staticwebassets\\fontawesome\\webfonts\\fa-regular-400.ttf"
+    },
+    {
+      "Id": "C:\\Users\\quent\\source\\repos\\Dungeons&Databases\\Dungeons&Databases\\wwwroot\\fontawesome\\webfonts\\fa-regular-400.woff2",
+      "PackagePath": "staticwebassets\\fontawesome\\webfonts\\fa-regular-400.woff2"
+    },
+    {
+      "Id": "C:\\Users\\quent\\source\\repos\\Dungeons&Databases\\Dungeons&Databases\\wwwroot\\fontawesome\\webfonts\\fa-solid-900.ttf",
+      "PackagePath": "staticwebassets\\fontawesome\\webfonts\\fa-solid-900.ttf"
+    },
+    {
+      "Id": "C:\\Users\\quent\\source\\repos\\Dungeons&Databases\\Dungeons&Databases\\wwwroot\\fontawesome\\webfonts\\fa-solid-900.woff2",
+      "PackagePath": "staticwebassets\\fontawesome\\webfonts\\fa-solid-900.woff2"
+    },
+    {
+      "Id": "C:\\Users\\quent\\source\\repos\\Dungeons&Databases\\Dungeons&Databases\\wwwroot\\fontawesome\\webfonts\\fa-v4compatibility.ttf",
+      "PackagePath": "staticwebassets\\fontawesome\\webfonts\\fa-v4compatibility.ttf"
+    },
+    {
+      "Id": "C:\\Users\\quent\\source\\repos\\Dungeons&Databases\\Dungeons&Databases\\wwwroot\\fontawesome\\webfonts\\fa-v4compatibility.woff2",
+      "PackagePath": "staticwebassets\\fontawesome\\webfonts\\fa-v4compatibility.woff2"
+    },
+    {
+      "Id": "C:\\Users\\quent\\source\\repos\\Dungeons&Databases\\Dungeons&Databases\\wwwroot\\img\\DARK.png",
+      "PackagePath": "staticwebassets\\img\\DARK.png"
+    },
+    {
+      "Id": "C:\\Users\\quent\\source\\repos\\Dungeons&Databases\\Dungeons&Databases\\wwwroot\\img\\EARTH.png",
+      "PackagePath": "staticwebassets\\img\\EARTH.png"
+    },
+    {
+      "Id": "C:\\Users\\quent\\source\\repos\\Dungeons&Databases\\Dungeons&Databases\\wwwroot\\img\\ELECTRIC.png",
+      "PackagePath": "staticwebassets\\img\\ELECTRIC.png"
+    },
+    {
+      "Id": "C:\\Users\\quent\\source\\repos\\Dungeons&Databases\\Dungeons&Databases\\wwwroot\\img\\FIRE.png",
+      "PackagePath": "staticwebassets\\img\\FIRE.png"
+    },
+    {
+      "Id": "C:\\Users\\quent\\source\\repos\\Dungeons&Databases\\Dungeons&Databases\\wwwroot\\img\\ICE.png",
+      "PackagePath": "staticwebassets\\img\\ICE.png"
+    },
+    {
+      "Id": "C:\\Users\\quent\\source\\repos\\Dungeons&Databases\\Dungeons&Databases\\wwwroot\\img\\LIGHT.png",
+      "PackagePath": "staticwebassets\\img\\LIGHT.png"
+    },
+    {
+      "Id": "C:\\Users\\quent\\source\\repos\\Dungeons&Databases\\Dungeons&Databases\\wwwroot\\img\\WATER.png",
+      "PackagePath": "staticwebassets\\img\\WATER.png"
+    },
+    {
+      "Id": "C:\\Users\\quent\\source\\repos\\Dungeons&Databases\\Dungeons&Databases\\wwwroot\\img\\WIND.png",
+      "PackagePath": "staticwebassets\\img\\WIND.png"
+    },
+    {
+      "Id": "obj\\Debug\\net6.0\\staticwebassets\\msbuild.Dungeons&Databases.Microsoft.AspNetCore.StaticWebAssets.props",
+      "PackagePath": "build\\Microsoft.AspNetCore.StaticWebAssets.props"
+    },
+    {
+      "Id": "obj\\Debug\\net6.0\\staticwebassets\\msbuild.build.Dungeons&Databases.props",
+      "PackagePath": "build\\Dungeons&Databases.props"
+    },
+    {
+      "Id": "obj\\Debug\\net6.0\\staticwebassets\\msbuild.buildMultiTargeting.Dungeons&Databases.props",
+      "PackagePath": "buildMultiTargeting\\Dungeons&Databases.props"
+    },
+    {
+      "Id": "obj\\Debug\\net6.0\\staticwebassets\\msbuild.buildTransitive.Dungeons&Databases.props",
+      "PackagePath": "buildTransitive\\Dungeons&Databases.props"
+    }
+  ],
+  "ElementsToRemove": []
+}

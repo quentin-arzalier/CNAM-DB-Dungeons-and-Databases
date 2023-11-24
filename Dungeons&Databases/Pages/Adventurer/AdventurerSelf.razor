@@ -1,0 +1,35 @@
+﻿@page "/adventurer/self"
+
+@using Dungeons_Databases.Data;
+@using Dungeons_Databases.Models.Entities;
+@inject AdventurerService adventurerService 
+@inject NavigationManager navManager
+
+<h1>Your adventurer :</h1> 
+<h2>@adventurer.Name <img src="img/@(adventurer.Element).png" title="@adventurer.Element.ToLower()" /></h2>
+<h3>Level @adventurer.Level <em>(@(adventurer.ExpUntilLevelUp)xp left until level up)</em></h3>
+<p><strong>Class : </strong>@adventurer.Class</p>
+<h3>Description</h3>
+<p>@adventurer.Description</p>
+
+<SkillGrid adventurerModel="@adventurer" startRemainingPoints="@startRemainingPoints" />
+
+
+@code {
+	private AdventurerModel adventurer = new();
+	private int startRemainingPoints;
+
+	protected override async Task OnInitializedAsync()
+	{
+		var potentialAdventurer = await adventurerService.GetCurrentAdventurerAsync();
+		if (potentialAdventurer == null)
+		{
+			navManager.NavigateTo("/adventurer/create");
+		}
+		else
+		{
+			adventurer = potentialAdventurer;
+			startRemainingPoints = adventurer.RemainingSkillPoints;
+		}
+	}
+}

@@ -1,0 +1,63 @@
+﻿@using Dungeons_Databases.Data;
+@using Dungeons_Databases.Models.Entities;
+@inherits LayoutComponentBase
+@inject UserService userService;
+@inject NavigationManager navManager;
+
+<PageTitle>Dungeons&Databases</PageTitle>
+
+<div class="page">
+    @uri
+    <div class="sidebar">
+        <NavMenu user="@user" />
+    </div>
+
+    <main>
+
+        @if (user != null)
+        {
+            <div class="top-row px-4">
+                <span>Connected as @user.Email</span>
+                <NavLink class="nav-link" @onclick="Disconnect">
+                    Disconnect
+                </NavLink>
+            </div>
+        }
+        else
+        {
+            <div class="top-row px-4">
+                <NavLink class="nav-link" href="register">
+                    Register
+                </NavLink>
+                <NavLink class="nav-link" href="login">
+                    Login
+                </NavLink>
+            </div>
+        }
+
+        <article class="content px-4">
+            @Body
+        </article>
+    </main>
+</div>
+
+@code {
+    private UserModel? user;
+    private String? uri;
+
+    protected override async Task OnInitializedAsync()
+    {
+        user = await userService.GetUserInSessionAsync();
+        if (user != default && user.Adventurer == default)
+        {
+            navManager.NavigateTo("/adventurer/create");
+        }
+        StateHasChanged();
+    }
+
+    private async void Disconnect()
+    {
+        await userService.Disconnect();
+        navManager.NavigateTo("/", true);
+    }
+}

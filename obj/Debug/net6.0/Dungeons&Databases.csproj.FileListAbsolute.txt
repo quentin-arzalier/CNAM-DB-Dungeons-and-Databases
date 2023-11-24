@@ -1,0 +1,8 @@
+C:\Users\quent\source\repos\Dungeons&Databases\obj\Debug\net6.0\Dungeons&Databases.csproj.AssemblyReference.cache
+C:\Users\quent\source\repos\Dungeons&Databases\obj\Debug\net6.0\Dungeons&Databases.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\quent\source\repos\Dungeons&Databases\obj\Debug\net6.0\Dungeons&Databases.AssemblyInfoInputs.cache
+C:\Users\quent\source\repos\Dungeons&Databases\obj\Debug\net6.0\Dungeons&Databases.AssemblyInfo.cs
+C:\Users\quent\source\repos\Dungeons&Databases\obj\Debug\net6.0\Dungeons&Databases.csproj.CoreCompileInputs.cache
+C:\Users\quent\source\repos\Dungeons&Databases\obj\Debug\net6.0\Dungeons&Databases.MvcApplicationPartsAssemblyInfo.cache
+C:\Users\quent\source\repos\Dungeons&Databases\obj\Debug\net6.0\Dungeons&Databases.RazorAssemblyInfo.cache
+C:\Users\quent\source\repos\Dungeons&Databases\obj\Debug\net6.0\Dungeons&Databases.RazorAssemblyInfo.cs

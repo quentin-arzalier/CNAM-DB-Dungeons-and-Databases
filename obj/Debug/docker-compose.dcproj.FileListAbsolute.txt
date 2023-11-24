@@ -1,0 +1,13 @@
+C:\Users\quent\source\repos\Dungeons&Databases\obj\Debug\docker-compose.dcproj.CoreCompileInputs.cache
+C:\Users\quent\source\repos\Dungeons&Databases\bin\Debug\Dungeons&Databases.deps.json
+C:\Users\quent\source\repos\Dungeons&Databases\bin\Debug\Dungeons&Databases.runtimeconfig.json
+C:\Users\quent\source\repos\Dungeons&Databases\bin\Debug\appsettings.Development.json
+C:\Users\quent\source\repos\Dungeons&Databases\bin\Debug\appsettings.json
+C:\Users\quent\source\repos\Dungeons&Databases\bin\Debug\Dungeons&Databases.staticwebassets.runtime.json
+C:\Users\quent\source\repos\Dungeons&Databases\bin\Debug\Dungeons&Databases.exe
+C:\Users\quent\source\repos\Dungeons&Databases\bin\Debug\Dungeons&Databases.dll
+C:\Users\quent\source\repos\Dungeons&Databases\bin\Debug\Npgsql.dll
+C:\Users\quent\source\repos\Dungeons&Databases\bin\Debug\Dapper.dll
+C:\Users\quent\source\repos\Dungeons&Databases\bin\Debug\Dungeons&Databases.pdb
+C:\Users\quent\source\repos\Dungeons&Databases\obj\Debug\docker-compose.dcproj.AssemblyReference.cache
+C:\Users\quent\source\repos\Dungeons&Databases\obj\Debug\docker-compose.dcproj.CopyComplete

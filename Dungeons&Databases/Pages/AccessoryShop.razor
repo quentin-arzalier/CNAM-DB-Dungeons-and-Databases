@@ -1,0 +1,65 @@
+﻿@page "/shop"
+@using Dungeons_Databases.Data;
+@using Dungeons_Databases.Models.Entities;
+
+@inject AccessoryService srv
+
+<PageTitle>Shop</PageTitle>
+
+<h1>Shop</h1>
+
+<div class="shop-grid">
+    @foreach (var acc in accessories)
+    {
+        <div class="shop-item">
+            <div class="shop-item-description">
+                <span>
+                    @acc.Name
+                </span>
+                <span>
+                    @(acc.GoldCost)g
+                </span>
+            </div>
+            <button class="btn btn-primary">Purchase</button>
+        </div>
+    }
+</div>
+
+
+<div style="text-align: end">
+    <button class="btn btn-secondary" @onclick="PreviousPage">Previous</button>
+    <span>Page @(currentPage + 1) / @totalPageCount</span>
+    <button class="btn btn-secondary" @onclick="NextPage">Next</button>
+</div>
+
+@code {
+
+    private int totalCount = 0;
+    private int currentPage = 0;
+    private int totalPageCount => (int)Math.Ceiling(totalCount / 20.0d);
+    private List<AccessoryModel> accessories = new();
+
+    protected override async Task OnInitializedAsync()
+    {
+        totalCount = await srv.GetTotalAccessoryCountInShop();
+        accessories = await srv.GetListPaginatedForShop(currentPage);
+    }
+
+    protected async Task ChangePage(int newPage)
+    {
+        currentPage = newPage;
+        accessories = await srv.GetListPaginatedForShop(currentPage);
+    }
+
+    protected async Task PreviousPage()
+    {
+        if (currentPage != 0)
+            await ChangePage(currentPage - 1);
+    }
+
+    protected async Task NextPage()
+    {
+        if (currentPage != totalPageCount - 1)
+            await ChangePage(currentPage + 1);
+    }
+}

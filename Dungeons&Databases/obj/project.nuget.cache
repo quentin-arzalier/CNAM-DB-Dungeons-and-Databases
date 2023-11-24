@@ -1,0 +1,13 @@
+{
+  "version": 2,
+  "dgSpecHash": "wHraFPv1rma4lUfX6iyinjNPuXu5oyrVpvKnXld+dwbxy7EdskA8dNh/4Eo/PZXvmfQWOGlwBjZymxqcYmdljQ==",
+  "success": true,
+  "projectFilePath": "C:\\Users\\quent\\source\\repos\\Dungeons&Databases\\Dungeons&Databases\\Dungeons&Databases.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\quent\\.nuget\\packages\\dapper\\2.0.151\\dapper.2.0.151.nupkg.sha512",
+    "C:\\Users\\quent\\.nuget\\packages\\microsoft.visualstudio.azure.containers.tools.targets\\1.19.4\\microsoft.visualstudio.azure.containers.tools.targets.1.19.4.nupkg.sha512",
+    "C:\\Users\\quent\\.nuget\\packages\\npgsql\\6.0.10\\npgsql.6.0.10.nupkg.sha512",
+    "C:\\Users\\quent\\.nuget\\packages\\system.runtime.compilerservices.unsafe\\6.0.0\\system.runtime.compilerservices.unsafe.6.0.0.nupkg.sha512"
+  ],
+  "logs": []
+}

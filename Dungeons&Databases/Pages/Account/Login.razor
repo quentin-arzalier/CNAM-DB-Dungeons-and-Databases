@@ -1,0 +1,66 @@
+﻿@page "/login"
+@using Dungeons_Databases.Data;
+@inject UserService srv
+@inject NavigationManager NavigationManager
+
+<PageTitle>Login</PageTitle>
+
+<h1>Login</h1>
+
+<div class="account-form">
+
+	<div class="custom-input">
+		<label for="emailField"><i class="fa-regular fa-envelope"></i></label>
+		<input id="emailField" type=" email" placeholder="Email" @oninput="ChangeEmail" @onkeypress="KeyPressed">
+	</div>
+
+	<div class="custom-input">
+		<label for="passwordField"><i class="fa-solid fa-key"></i></label>
+		<input id="passwordField" type="password" @oninput="ChangePassword" placeholder="Password" @onkeypress="KeyPressed" />
+	</div>
+
+	@if (showError)
+	{
+		<div>The specified password and email are incorrect.</div>
+	}
+
+	<button class="btn btn-primary" @onclick="OnLogin">Login</button>
+</div>
+
+@code {
+	private string email = "";
+	private string password = "";
+	private bool showError = false;
+
+	public void ChangeEmail(ChangeEventArgs args) => email = args.Value?.ToString() ?? "";
+	public void ChangePassword(ChangeEventArgs args) => password = args.Value?.ToString() ?? "";
+
+	protected override async Task OnInitializedAsync()
+	{
+		if (await srv.GetUserInSessionAsync() != null)
+		{
+			NavigationManager.NavigateTo("/");
+		}
+	}
+
+	public async Task OnLogin()
+	{
+		if (await srv.LoginAsync(email, password))
+		{
+			NavigationManager.NavigateTo("/", true);
+		}
+		else
+		{
+			showError = true;
+		}
+	}
+
+
+	private async Task KeyPressed(KeyboardEventArgs args)
+	{
+		if (args.Code == "Enter" || args.Code == "NumpadEnter")
+		{
+			await OnLogin();
+		}
+	}
+}

@@ -1,0 +1,128 @@
+﻿@page "/register"
+@using Dungeons_Databases.Data;
+@using Dungeons_Databases.Models.ViewModels;
+@inject UserService srv
+@inject NavigationManager NavigationManager
+
+<PageTitle>Register</PageTitle>
+
+<h1>Create your account here</h1>
+
+<div class="account-form">
+
+	<div class="custom-input">
+		<label for="emailField"><i class="fa-regular fa-envelope"></i></label>
+		<input id="emailField" type=" email" placeholder="email" @oninput="ChangeEmail">
+	</div>
+	
+	@if (displayEmailValidations)
+	{
+		<ul class="validations">
+			<li class="@GetValidationClass(model?.CheckEmailValidity)">Email must be valid</li>
+			<li class="@GetValidationClass(model?.CheckEmailUnicity)">No account must exist with this email</li>
+		</ul>
+	}
+
+	<div class="custom-input">
+		<label for="passwordField"><i class="fa-solid fa-key"></i></label>
+		<input id="passwordField" type="password" @oninput="ChangePassword" placeholder="Password" @onkeypress="KeyPressed"/>
+	</div>
+
+	@if (displayPwdValidations)
+	{
+		<ul class="validations">
+			<li class="@GetValidationClass(model?.CheckPasswordLength)">Password must be at least 8 characters long</li>
+			<li class="@GetValidationClass(model?.CheckPasswordUppercaseLetter)">Password must contain at least one uppercase letter</li>
+			<li class="@GetValidationClass(model?.CheckPasswordLowercaseLetter)">Password must contain at least one lowercase letter</li>
+			<li class="@GetValidationClass(model?.CheckPasswordNumericLetter)">Password must contain at least one number</li>
+			<li class="@GetValidationClass(model?.CheckPasswordSpecialCharacter)">Password must contain at least one of these special characters : ! @@ # $ & * </li>
+		</ul>
+	}
+
+	<div class="custom-input">
+		<label for="passwordField"><i class="fa-solid fa-key"></i></label>
+		<input type="password" @oninput="ChangeConfirmPassword" placeholder="Confirm password"/>
+	</div>
+
+	@if(!string.IsNullOrEmpty(confirmPasswordValue))
+	{
+		<ul class="validations">
+			<li class="@GetValidationClass(confirmPasswordValue == passwordValue)">Passwords must match</li>
+		</ul>
+	}
+
+	<button class="btn btn-primary" @onclick="OnRegistration">Register</button>
+</div>
+
+@code {
+	private string emailValue = "";
+	private bool displayEmailValidations = false;
+	private string passwordValue = "";
+	private string confirmPasswordValue = "";
+	private bool displayPwdValidations = false;
+	private RegisterViewModel model = new();
+
+	protected override async Task OnInitializedAsync()
+	{
+		if (await srv.GetUserInSessionAsync() != null)
+		{
+			NavigationManager.NavigateTo("/");
+		}
+	}
+
+	private async Task ChangeEmail(ChangeEventArgs args)
+	{
+		var currEmail = args.Value?.ToString();
+		emailValue = currEmail ?? "";
+
+		await Task.Delay(500);
+
+		if (emailValue == currEmail)
+		{
+			srv.ValidateEmail(emailValue, ref model);
+			displayEmailValidations = emailValue != "";
+		}
+	}
+
+	private async Task ChangePassword(ChangeEventArgs args)
+	{
+		var currPwd = args.Value?.ToString();
+		passwordValue = currPwd ?? "";
+
+		await Task.Delay(500);
+
+		if (passwordValue == currPwd)
+		{
+			srv.ValidatePassword(passwordValue, ref model);
+			displayPwdValidations = passwordValue != "";
+		}
+	}
+
+	private void ChangeConfirmPassword(ChangeEventArgs args)
+	{
+		confirmPasswordValue = args.Value?.ToString() ?? "";
+	}
+
+	private void OnRegistration()
+	{
+		if (passwordValue == confirmPasswordValue && srv.Register(emailValue, passwordValue))
+		{
+			NavigationManager.NavigateTo("/login");
+		}
+	}
+
+	private string? GetValidationClass(bool? value)
+	{
+		if (value.HasValue)
+			return value.Value ? "valid" : "invalid";
+		return null;
+	}
+
+	private void KeyPressed(KeyboardEventArgs args)
+	{
+		if (args.Code == "Enter" || args.Code == "NumpadEnter")
+		{
+			OnRegistration();
+		}
+	}
+}

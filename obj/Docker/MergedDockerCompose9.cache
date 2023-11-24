@@ -1,0 +1,75 @@
+name: dockercompose4022894546895365372
+services:
+  dungeons-and-databases-db:
+    container_name: dungeons-and-databases-db
+    environment:
+      POSTGRES_DB: postgres
+      POSTGRES_PASSWORD: passw0rd!
+      POSTGRES_USER: postgres
+    expose:
+    - "5432"
+    healthcheck:
+      test:
+      - CMD-SHELL
+      - pg_isready
+      timeout: 5s
+      interval: 10s
+      retries: 5
+    image: postgres:latest
+    networks:
+      dungeons-and-databases-network: null
+    ports:
+    - mode: ingress
+      target: 5432
+      published: "5433"
+      protocol: tcp
+    volumes:
+    - type: bind
+      source: C:\Users\quent\source\repos\Dungeons&Databases\Dungeons&Databases\CompoundSqlScripts
+      target: /docker-entrypoint-initdb.d
+      bind:
+        create_host_path: true
+    - type: volume
+      source: pg_data
+      target: /var/lib/postgresql/data
+      volume: {}
+  dungeonsdatabases:
+    build:
+      context: C:\Users\quent\source\repos\Dungeons&Databases\Dungeons&Databases
+      dockerfile: ./Dungeons&Databases/Dockerfile
+    depends_on:
+      dungeons-and-databases-db:
+        condition: service_healthy
+    environment:
+      ASPNETCORE_ENVIRONMENT: Development
+      ASPNETCORE_URLS: https://+:443;http://+:80
+    image: dungeonsdatabases
+    networks:
+      dungeons-and-databases-network: null
+    ports:
+    - mode: ingress
+      target: 80
+      protocol: tcp
+    - mode: ingress
+      target: 443
+      protocol: tcp
+    volumes:
+    - type: bind
+      source: C:\Users\quent\AppData\Roaming/Microsoft/UserSecrets
+      target: /root/.microsoft/usersecrets
+      read_only: true
+      bind:
+        create_host_path: true
+    - type: bind
+      source: C:\Users\quent\AppData\Roaming/ASP.NET/Https
+      target: /root/.aspnet/https
+      read_only: true
+      bind:
+        create_host_path: true
+networks:
+  dungeons-and-databases-network:
+    name: dockercompose4022894546895365372_dungeons-and-databases-network
+    driver: bridge
+volumes:
+  pg_data:
+    name: dockercompose4022894546895365372_pg_data

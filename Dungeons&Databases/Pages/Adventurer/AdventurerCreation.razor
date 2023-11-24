@@ -1,0 +1,125 @@
+﻿@page "/adventurer/create"
+@using Dungeons_Databases.Data;
+@using Dungeons_Databases.Models.Entities;
+@using Dungeons_Databases.Models.Enums;
+
+@inject AdventurerService adventurerService
+@inject UserService userService
+@inject NavigationManager navManager
+
+<h1>Create your own adventurer!</h1>
+
+<div class="account-form">
+
+	<div class="custom-input">
+		<label for="nameField"><i class="fa-regular fa-envelope"></i></label>
+		<input id="nameField" type="text" placeholder="Name your adventurer" @oninput="ChangeName">
+	</div>
+
+
+	<div class="custom-input">
+		<label for="descField"><i class="fa-regular fa-envelope"></i></label>
+		<textarea id="descField" placeholder="Enter adventurer description" @oninput="ChangeDesc"></textarea>
+	</div>
+
+	<div class="custom-input">
+		<label for="weaponField"><i class="fa-regular fa-envelope"></i></label>
+		<select id="weaponField" @oninput="ChangeWeapon">
+			<option value="@WeaponEnum.UNKNOWN">Choose a weapon</option>
+			@foreach (var weapon in Enum.GetValues<WeaponEnum>().Where(e => e != WeaponEnum.UNKNOWN))
+			{
+				<option value="@weapon">@weapon.ToString()</option>
+			}
+		</select>
+	</div>
+
+	<div class="custom-input">
+		<label for="weaponField"><i class="fa-regular fa-envelope"></i></label>
+		<select id="weaponField" @oninput="ChangeClass">
+			<option value="">Choose your class</option>
+			<option value="@ClassEnum.ATK">Attacker</option>
+			<option value="@ClassEnum.TNK">Tank</option>
+			<option value="@ClassEnum.SGN">Healer</option>
+		</select>
+	</div>
+
+	<div class="custom-input">
+		<label for="weaponField"><i class="fa-regular fa-envelope"></i></label>
+		<select id="weaponField" @oninput="ChangeElement">
+			<option value="">Choose your element</option>
+			<option value="@ElementEnum.FIRE">Fire</option>
+			<option value="@ElementEnum.ICE">Ice</option>
+			<option value="@ElementEnum.EARTH">Earth</option>
+			<option value="@ElementEnum.LIGHT">Light</option>
+			<option value="@ElementEnum.WATER">Water</option>
+			<option value="@ElementEnum.WIND">Wind</option>
+			<option value="@ElementEnum.ELECTRIC">Electric</option>
+			<option value="@ElementEnum.DARK">Dark</option>
+		</select>
+	</div>
+
+	<hr />
+
+	<SkillGrid adventurerModel="@adventurerModel"/>
+
+	<button class="btn btn-primary" @onclick="CreateAdventurer">Create adventurer</button>
+</div>
+
+@code {
+	private AdventurerModel adventurerModel = new();
+
+	protected override async Task OnInitializedAsync()
+	{
+		var currUser = await userService.GetUserInSessionAsync();
+		if (currUser == null)
+		{
+			navManager.NavigateTo("/login");
+			return;
+		}
+		var potentialAdventurer = await adventurerService.GetCurrentAdventurerAsync();
+		if (potentialAdventurer != null)
+		{
+			navManager.NavigateTo("/adventurer/self");
+		}
+		adventurerModel = new(currUser);
+	}
+
+	private void ChangeName(ChangeEventArgs args)
+	{
+		adventurerModel.Name = args.Value?.ToString() ?? "";
+	}
+
+	private void ChangeDesc(ChangeEventArgs args)
+	{
+		adventurerModel.Description = args.Value?.ToString() ?? "";
+	}
+
+	private void ChangeWeapon(ChangeEventArgs args)
+	{
+		if (args.Value != default)
+			adventurerModel.WeaponId = (int)Enum.Parse<WeaponEnum>((string)args.Value);
+		else
+			adventurerModel.WeaponId = 0;
+	}
+
+	private void ChangeClass(ChangeEventArgs args)
+	{
+		adventurerModel.Class = args.Value?.ToString() ?? "";
+	}
+
+	private void ChangeElement(ChangeEventArgs args)
+	{
+		adventurerModel.Element = args.Value?.ToString() ?? "";
+	}
+
+	private async Task CreateAdventurer()
+	{
+		if (adventurerModel.IsModelValid)
+		{
+			if (await adventurerService.CreateAdventurerAsync(adventurerModel))
+			{
+				navManager.NavigateTo("/adventurer/self");
+			}
+		}
+	}
+}
