@@ -7,7 +7,14 @@
 
 <h1>Your adventurer :</h1> 
 <h2>@adventurer.Name <img src="img/@(adventurer.Element).png" title="@adventurer.Element.ToLower()" /></h2>
-<h3>Level @adventurer.Level <em>(@(adventurer.ExpUntilLevelUp)xp left until level up)</em></h3>
+@if(adventurer.Level < 10)
+{
+	<h3>Level @adventurer.Level <em>(@(adventurer.ExpUntilLevelUp)xp left until level up)</em></h3>
+}
+else
+{
+	<h3>Level @adventurer.Level <em>(Max level reached!)</em></h3>
+}
 <p><strong>Class : </strong>@adventurer.Class</p>
 <h3>Description</h3>
 <p>@adventurer.Description</p>

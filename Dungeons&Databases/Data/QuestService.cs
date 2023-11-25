@@ -8,17 +8,19 @@ namespace Dungeons_Databases.Data
         public QuestService(DatabaseService dbService, ProtectedSessionStorage sessionStorage, IConfiguration config) : base(dbService, sessionStorage, config)
         {
         }
-        public async Task<int> GetTotalAvailableQuestCount()
+        public async Task<int> GetTotalAvailableQuestCount(string search)
         {
+            search ??= string.Empty;
             var currAdv = (await GetCurrentUserAsync())?.Adventurer;
             if (currAdv == null)
                 return 0;
 
-            var totalCount = _dbService.Get<int>(COUNT_AVAILABLE_QUESTS_FOR_ADVENTURER, new { currAdv.AdventurerId });
+            var totalCount = _dbService.Get<int>(COUNT_AVAILABLE_QUESTS_FOR_ADVENTURER, new { currAdv.AdventurerId, Search=$"%{search}%"});
             return totalCount;
         }
-        public async Task<List<QuestModel>> GetAvailableQuestsPaginatedForCurrentAdventurer(int pageNumber)
+        public async Task<List<QuestModel>> GetAvailableQuestsPaginatedForCurrentAdventurer(int pageNumber, string search)
         {
+            search ??= string.Empty;
             var currAdv = (await GetCurrentUserAsync())?.Adventurer;
             if (currAdv == null)
                 return new();
@@ -27,7 +29,8 @@ namespace Dungeons_Databases.Data
             {
                 AdventurerId = currAdv.AdventurerId,
                 Limit = ITEMS_PER_PAGE,
-                Offset = ITEMS_PER_PAGE * pageNumber
+                Offset = ITEMS_PER_PAGE * pageNumber,
+                Search = $"%{search}%"
             });
 
             foreach (var quest in quests)
@@ -78,7 +81,7 @@ WHERE quest_id NOT IN
    SELECT quest_id
    FROM quest_log
    WHERE adventurer_id = @AdventurerId
-);
+) AND ""name"" ILIKE @Search;
 ";
         private const string GET_AVAILABLE_QUESTS_FOR_ADVENTURER = @"
 SELECT * FROM quest
@@ -87,7 +90,8 @@ WHERE quest_id NOT IN
    SELECT quest_id
    FROM quest_log
    WHERE adventurer_id = @AdventurerId
-)
+) AND ""name"" ILIKE @Search
+ORDER BY ""name""
 LIMIT @Limit OFFSET @Offset;
 ";
         private const string GET_REWARDS_OF_QUEST = @"

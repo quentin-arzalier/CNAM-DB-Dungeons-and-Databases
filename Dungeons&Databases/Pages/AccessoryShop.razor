@@ -8,19 +8,66 @@
 
 <h1>Shop</h1>
 
+<div class="custom-input">
+    <label for="searchField"><i class="fa-solid fa-magnifying-glass"></i></label>
+    <input id="searchField" type="text" placeholder="Search" @oninput="ChangeSearch">
+</div>
+
 <div class="shop-grid">
     @foreach (var acc in accessories)
     {
-        <div class="shop-item">
-            <div class="shop-item-description">
+        <div class="quest-item">
+            <div class="quest-item-description">
                 <span>
                     @acc.Name
                 </span>
+
+                <hr />
+
                 <span>
-                    @(acc.GoldCost)g
+                    Crafting cost :
                 </span>
+                <ul>
+                    <li>Gold : @acc.GoldCost</li>
+                    <li>
+                        Trinkets :
+                        <ul>
+                            @foreach (var req in acc.CraftingRequirements)
+                            {
+                                <li>@req.Trinket.Name : @req.Amount</li>
+                            }
+                        </ul>
+                    </li>
+                </ul>
+
+                <hr />
+
+                <span>
+                    Boosts :
+                </span>
+                <ul>
+                    @foreach (var boost in acc.Boosts)
+                    {
+                        <li>@boost.StatTypeString : @boost.StatBoost</li>
+                    }
+                </ul>
+
+                @if (acc.CanCraft)
+                {
+                    @if (!acc.Crafted)
+                    {
+                        <button class="btn btn-primary" @onclick="(async () => await CraftAccessory(acc))">Craft</button>
+                    }
+                    else
+                    {
+                        <button class="btn btn-success" disabled>Crafted!</button>
+                    }
+                }
+                else
+                {
+                    <button class="btn btn-secondary" disabled>Not enough resources.</button>
+                }
             </div>
-            <button class="btn btn-primary">Purchase</button>
         </div>
     }
 </div>
@@ -33,7 +80,7 @@
 </div>
 
 @code {
-
+    private string search = "";
     private int totalCount = 0;
     private int currentPage = 0;
     private int totalPageCount => (int)Math.Ceiling(totalCount / 20.0d);
@@ -41,14 +88,14 @@
 
     protected override async Task OnInitializedAsync()
     {
-        totalCount = await srv.GetTotalAccessoryCountInShop();
-        accessories = await srv.GetListPaginatedForShop(currentPage);
+        totalCount = await srv.GetTotalAccessoryCountInShop(search);
+        accessories = await srv.GetListPaginatedForShop(currentPage, search);
     }
 
     protected async Task ChangePage(int newPage)
     {
         currentPage = newPage;
-        accessories = await srv.GetListPaginatedForShop(currentPage);
+        accessories = await srv.GetListPaginatedForShop(currentPage, search);
     }
 
     protected async Task PreviousPage()
@@ -61,5 +108,25 @@
     {
         if (currentPage != totalPageCount - 1)
             await ChangePage(currentPage + 1);
+    }
+
+    private async Task CraftAccessory(AccessoryModel accessory)
+    {
+        accessory.Crafted = await srv.CraftAccessoryAsync(accessory);
+        StateHasChanged();
+    }
+    private async Task ChangeSearch(ChangeEventArgs args)
+    {
+        var currSearch = args.Value?.ToString();
+        search = currSearch ?? "";
+
+        await Task.Delay(500);
+
+        if (search == currSearch)
+        {
+            currentPage = 0;
+            totalCount = await srv.GetTotalAccessoryCountInShop(search);
+            accessories = await srv.GetListPaginatedForShop(currentPage, search);
+        }
     }
 }

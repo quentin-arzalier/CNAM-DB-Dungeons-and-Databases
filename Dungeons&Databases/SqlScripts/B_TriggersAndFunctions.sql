@@ -30,7 +30,11 @@ CREATE OR REPLACE PROCEDURE add_exp_to_adventurer(
  LANGUAGE plpgsql
  AS $$
  BEGIN
-    IF (SELECT a.xp_count + xp_count_param > (1000+250*POW(2, a."level")) FROM public.adventurer a WHERE a.adventurer_id = adventurer_id_param)
+    IF (SELECT a."level" = 10 FROM adventurer a WHERE adventurer_id = adventurer_id_param)
+    THEN 
+      RETURN;
+    END IF;
+    IF (SELECT a.xp_count + xp_count_param > (1000+250*POW(a."level", 2)) FROM public.adventurer a WHERE a.adventurer_id = adventurer_id_param)
     THEN
       UPDATE adventurer SET xp_count=xp_count+xp_count_param-(1000+250*POW("level", 2)), "level"="level"+1 WHERE adventurer_id=adventurer_id_param;
     ELSE
@@ -38,6 +42,45 @@ CREATE OR REPLACE PROCEDURE add_exp_to_adventurer(
     END IF;
  END;
  $$;
+ 
+
+CREATE OR REPLACE FUNCTION can_craft(
+   IN accessory_id_param INT,
+   IN adventurer_id_param INT
+)
+RETURNS BOOLEAN
+LANGUAGE plpgsql
+AS $$
+DECLARE
+   gold_cost INT := (SELECT acc.gold_cost FROM accessory acc WHERE acc.accessory_id = accessory_id_param);
+   craft_rec record;
+   craft_cursor CURSOR FOR SELECT * FROM crafting WHERE accessory_id=accessory_id_param;
+BEGIN
+   IF (
+      SELECT gold_cost > adv.gold 
+      FROM adventurer adv 
+      WHERE adv.adventurer_id = adventurer_id_param
+   )
+   THEN
+      RETURN FALSE;
+   END IF;
+   OPEN craft_cursor;
+   LOOP
+      FETCH craft_cursor INTO craft_rec;
+      EXIT WHEN NOT FOUND;
+      IF (
+         SELECT craft_rec.amount > COALESCE(p.amount, 0)
+         FROM adventurer a
+         LEFT JOIN trinket_pouch p ON p.adventurer_id = a.adventurer_id AND p.trinket_id = craft_rec.trinket_id
+         WHERE a.adventurer_id = adventurer_id_param
+      )
+      THEN
+         RETURN FALSE;
+      END IF;
+   END LOOP;
+   RETURN TRUE;
+END;
+$$;
  
 CREATE OR REPLACE FUNCTION purchase_accessory(
    IN accessory_id_param INT,
@@ -48,23 +91,39 @@ LANGUAGE plpgsql
 AS $$
 DECLARE
    gold_cost INT := (SELECT acc.gold_cost FROM accessory acc WHERE acc.accessory_id = accessory_id_param);
+   craft_rec record;
+   craft_cursor CURSOR FOR SELECT * FROM crafting WHERE accessory_id=accessory_id_param;
 BEGIN
-   IF (
-      SELECT gold_cost < adv.gold 
-      FROM adventurer adv 
-      WHERE adv.adventurer_id = adventurer_id_param
-   )
+   IF (SELECT NOT can_craft(accessory_id_param, adventurer_id_param))
    THEN
-      INSERT INTO public.inventory
-      (adventurer_id, accessory_id, is_equipped)
-      VALUES(adventurer_id_param, accessory_id_param, false);
-      UPDATE adventurer
-      SET gold=gold-gold_cost
-      WHERE adventurer_id=adventurer_id_param;
-      RETURN TRUE;
-   ELSE
       RETURN FALSE;
    END IF;
+   INSERT INTO public.inventory
+   (adventurer_id, accessory_id, is_equipped)
+   VALUES(adventurer_id_param, accessory_id_param, false);
+   UPDATE adventurer
+   SET gold=gold-gold_cost
+   WHERE adventurer_id=adventurer_id_param;
+   OPEN craft_cursor;
+   LOOP
+      FETCH craft_cursor INTO craft_rec;
+      EXIT WHEN NOT FOUND;
+      IF (
+         SELECT craft_rec.amount = p.amount
+         FROM adventurer a
+         JOIN trinket_pouch p ON p.adventurer_id = a.adventurer_id AND p.trinket_id = craft_rec.trinket_id
+      )
+      THEN
+         DELETE FROM trinket_pouch 
+         WHERE adventurer_id = adventurer_id_param 
+         AND trinket_id = craft_rec.trinket_id;
+      ELSE
+         UPDATE trinket_pouch SET amount=amount-craft_rec.amount
+         WHERE adventurer_id = adventurer_id_param 
+         AND trinket_id = craft_rec.trinket_id;
+      END IF;
+   END LOOP;
+   RETURN TRUE;
 END;
 $$;
 
@@ -84,6 +143,10 @@ DECLARE
    reward_rec record;
    reward_cursor CURSOR FOR SELECT * FROM quest_reward WHERE quest_id = quest_id_param;
 BEGIN
+   IF (SELECT quest_id_param IN (SELECT quest_id FROM quest_log))
+   THEN 
+      RETURN FALSE;
+   END IF;
    SELECT INTO adventurer_rec * FROM adventurer WHERE adventurer_id = adventurer_id_param;
    SELECT INTO v_xp_reward, v_gold_reward q.xp_reward, q.gold_reward
    FROM quest q WHERE q.quest_id = quest_id_param;
@@ -276,6 +339,9 @@ BEGIN
          VALUES(adventurer_id_param, reward_rec.trinket_id, reward_rec.amount);
       END IF;
    END LOOP;
+   INSERT INTO public.quest_log
+   (adventurer_id, quest_id)
+   VALUES(adventurer_id_param, quest_id_param);
    RETURN TRUE;
 END;
 $$;

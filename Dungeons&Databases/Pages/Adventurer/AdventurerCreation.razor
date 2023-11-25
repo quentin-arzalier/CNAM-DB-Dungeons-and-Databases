@@ -79,7 +79,7 @@
 		var potentialAdventurer = await adventurerService.GetCurrentAdventurerAsync();
 		if (potentialAdventurer != null)
 		{
-			navManager.NavigateTo("/adventurer/self");
+			navManager.NavigateTo("/adventurer/self", true);
 		}
 		adventurerModel = new(currUser);
 	}
@@ -118,7 +118,7 @@
 		{
 			if (await adventurerService.CreateAdventurerAsync(adventurerModel))
 			{
-				navManager.NavigateTo("/adventurer/self");
+				navManager.NavigateTo("/adventurer/self", true);
 			}
 		}
 	}

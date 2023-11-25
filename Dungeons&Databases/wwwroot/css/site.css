@@ -88,11 +88,11 @@ a, .btn-link {
     display: grid;
     justify-items: stretch;
     gap: 10px 5px;
-    grid-template-columns: 33% 33% 33%;
+    grid-template-columns: 24% 24% 24% 24%;
 }
 .shop-item {
     display: flex;
-    flex-direction: row;
+    flex-direction: column;
     background-color: lightblue;
     border-radius: 20px;
     padding: 10px;
@@ -103,8 +103,9 @@ a, .btn-link {
     flex-direction: column;
 }
 
-.shop-item-description > span:first-child{
+.shop-item-description > span:first-child {
     font-weight: bold;
+    text-align: center;
 }
 
 .trinket-grid {
