@@ -27,7 +27,8 @@ Un aventurier peut créer des objets
 - Une fonction gère la création d'accessoires avec les bonnes contraintes et l'ajoute à l'inventaire
 - Un trigger vérifie qu'un utilisateur ne peut pas équiper plus de deux accessoires à la fois.
 
-Tous les éléments intéragissent entre eux pour donner une dynamique à l'application  (l'expérience fait monter de niveau, ce qui permet d'avoir plus de compétences et donc de faire des quêtes plus complexes, ce qui permet d'avoir d'autres accessoires, qui augmentent ces compétences...)
+Tous les éléments intéragissent entre eux pour donner une dynamique à l'application  (l'expérience fait monter de niveau, ce qui permet d'avoir plus de compétences et donc de faire des quêtes plus complexes, ce qui permet d'avoir d'autres accessoires, qui augmentent ces compétences...)  
+Les concepts utilisés passent des domaines et des procédures stockées aux curseurs et aux record PL/PGSQL, ce qui couvre une grande partie du langage.
 
 # Rétrospective de projet
 J'ai appris énormément de choses pendant ce projet. Je suis content d'avoir choisi blazor comme langage front, car j'ai pu découvrir cette technologie qui m'était totalement étrangère auparavant.  
