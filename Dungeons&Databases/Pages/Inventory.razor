@@ -1,0 +1,122 @@
+﻿@page "/inventory"
+@using Dungeons_Databases.Data;
+@using Dungeons_Databases.Models.Entities;
+
+@inject AccessoryService srv
+
+<PageTitle>Inventory</PageTitle>
+
+<h1>Inventory</h1>
+<h2>All the accessories you crafted in the shop</h2>
+<h3>Careful! You can only have two accessories at the same time!</h3>
+
+<div class="custom-input">
+    <label for="searchField"><i class="fa-solid fa-magnifying-glass"></i></label>
+    <input id="searchField" type="text" placeholder="Search" @oninput="ChangeSearch">
+</div>
+
+<div class="shop-grid">
+    @foreach (var inv in inventories)
+    {
+        <div class="quest-item">
+            <div class="quest-item-description">
+                <span>
+                    @inv.Accessory.Name
+                </span>
+
+                <hr />
+
+                <span>
+                    Boosts :
+                </span>
+                <ul>
+                    @foreach (var boost in inv.Accessory.Boosts)
+                    {
+                        <li>@boost.StatTypeString : @boost.StatBoost</li>
+                    }
+                </ul>
+
+                @if (!inv.IsEquipped)
+                {
+                    <button class="btn btn-success" @onclick="(async () => await EquipInventory(inv))">Equip</button>
+                }
+                else
+                {
+                    <button class="btn btn-danger" @onclick="(async () => await UnEquipInventory(inv))">Unequip</button>
+                }
+            </div>
+        </div>
+    }
+</div>
+
+
+<div style="text-align: end">
+    <button class="btn btn-secondary" @onclick="PreviousPage">Previous</button>
+    <span>Page @(currentPage + 1) / @Math.Max(totalPageCount, 1)</span>
+    <button class="btn btn-secondary" @onclick="NextPage">Next</button>
+</div>
+
+@code {
+    private string search = "";
+    private int totalCount = 0;
+    private int currentPage = 0;
+    private int totalPageCount => (int)Math.Ceiling(totalCount / 20.0d);
+    private List<InventoryModel> inventories = new();
+
+    protected override async Task OnInitializedAsync()
+    {
+        totalCount = await srv.GetTotalAccessoryCountInInventory(search);
+        inventories = await srv.GetListPaginatedForInventory(currentPage, search);
+    }
+
+    protected async Task ChangePage(int newPage)
+    {
+        currentPage = newPage;
+        inventories = await srv.GetListPaginatedForInventory(currentPage, search);
+    }
+
+    protected async Task PreviousPage()
+    {
+        if (currentPage != 0)
+            await ChangePage(currentPage - 1);
+    }
+
+    protected async Task NextPage()
+    {
+        if (currentPage != totalPageCount - 1)
+            await ChangePage(currentPage + 1);
+    }
+
+    private async Task EquipInventory(InventoryModel inventory)
+    {
+        if (await srv.ChangeEquipInventory(inventory, true))
+        {
+            inventory.IsEquipped = true;
+            StateHasChanged();
+        }
+    }
+
+    private async Task UnEquipInventory(InventoryModel inventory)
+    {
+        if (await srv.ChangeEquipInventory(inventory, false))
+        {
+            inventory.IsEquipped = false;
+            StateHasChanged();
+        }
+    }
+
+    private async Task ChangeSearch(ChangeEventArgs args)
+    {
+        var currSearch = args.Value?.ToString();
+        search = currSearch ?? "";
+
+        await Task.Delay(500);
+
+        if (search == currSearch)
+        {
+            currentPage = 0;
+            totalCount = await srv.GetTotalAccessoryCountInInventory(search);
+            inventories = await srv.GetListPaginatedForInventory(currentPage, search);
+        }
+    }
+}

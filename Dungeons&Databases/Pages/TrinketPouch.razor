@@ -1,0 +1,75 @@
+﻿@page "/trinkets"
+@using Dungeons_Databases.Data;
+@using Dungeons_Databases.Models.Entities;
+@inject TrinketService srv
+
+<h3>Your own trinket pouch</h3>
+
+<div class="custom-input">
+    <label for="searchField"><i class="fa-solid fa-magnifying-glass"></i></label>
+    <input id="searchField" type="text" placeholder="Search" @oninput="ChangeSearch">
+</div>
+
+<div class="trinket-grid">
+    @foreach(var trinket in trinkets)
+    {
+        <div class="trinket-item">
+            <strong>@trinket.Trinket.Name</strong> : @trinket.Amount
+        </div>
+    }
+</div>
+
+<div style="text-align: end">
+    <button class="btn btn-secondary" @onclick="PreviousPage">Previous</button>
+    <span>Page @(currentPage + 1) / @Math.Max(totalPageCount, 1)</span>
+    <button class="btn btn-secondary" @onclick="NextPage">Next</button>
+</div>
+
+@code {
+    private string search = "";
+    private int totalCount = 0;
+    private int currentPage = 0;
+    private int totalPageCount => (int)Math.Ceiling(totalCount / 20.0d);
+    private List<TrinketPouchModel> trinkets = new();
+
+    protected override async Task OnInitializedAsync()
+    {
+        totalCount = await srv.CountTrinketsInPouch(search);
+        trinkets = await srv.GetTrinketPouchOfAdventurerPaginatedAsync(currentPage, search);
+    }
+
+    protected async Task ChangePage(int newPage)
+    {
+        currentPage = newPage;
+        trinkets = await srv.GetTrinketPouchOfAdventurerPaginatedAsync(currentPage, search);
+    }
+
+    protected async Task PreviousPage()
+    {
+        if (currentPage != 0)
+            await ChangePage(currentPage - 1);
+    }
+
+    protected async Task NextPage()
+    {
+        if (currentPage != totalPageCount - 1)
+            await ChangePage(currentPage + 1);
+    }
+
+    private async Task ChangeSearch(ChangeEventArgs args)
+    {
+        var currSearch = args.Value?.ToString();
+        search = currSearch ?? "";
+
+        await Task.Delay(500);
+
+        if (search == currSearch)
+        {
+            currentPage = 0;
+            totalCount = await srv.CountTrinketsInPouch(search);
+            trinkets = await srv.GetTrinketPouchOfAdventurerPaginatedAsync(currentPage, search);
+        }
+    }
+
+}
+    

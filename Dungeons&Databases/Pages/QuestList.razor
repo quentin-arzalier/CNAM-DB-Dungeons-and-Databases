@@ -1,0 +1,132 @@
+﻿@page "/quests"
+@using Dungeons_Databases.Data;
+@using Dungeons_Databases.Models.Entities;
+
+@inject QuestService srv
+
+<PageTitle>Quests</PageTitle>
+
+<h1>Quests</h1>
+<h3>Here is a list of quests you have not completed already</h3>
+
+<div class="custom-input">
+    <label for="searchField"><i class="fa-solid fa-magnifying-glass"></i></label>
+    <input id="searchField" type="text" placeholder="Search" @oninput="ChangeSearch">
+</div>
+
+<div class="quest-grid">
+    @foreach (var quest in quests)
+    {
+        <div class="quest-item">
+            <div class="quest-item-description">
+                <span>
+                    @quest.Name
+                </span>
+
+                <hr/>
+
+                <span>
+                    Requirements :
+                </span>
+                <ul>
+                    @foreach(var req in quest.Requirements)
+                    {
+                        <li>@req.RequirementTypeString : @req.Amount</li>
+                    }
+                </ul>
+
+                <hr/>
+
+                <span>
+                    Rewards :
+                </span>
+                <ul>
+                    <li>Gold : @quest.GoldReward</li>
+                    <li>Experience : @quest.XpReward</li>
+                    <li>Trinkets : 
+                        <ul>
+                    @foreach(var req in quest.Rewards)
+                    {
+                        <li>@req.Trinket.Name : @req.Amount</li>
+                    }
+                        </ul>
+                    </li>
+                </ul>
+
+                @if (!quest.Succeeded.HasValue)
+                {
+                    <button class="btn btn-primary" @onclick="(async () => await TryQuest(quest))">Attempt</button>
+                }
+                else if (quest.Succeeded.Value)
+                {
+                    <button class="btn btn-success" disabled>Success!</button>
+                }
+                else
+                {
+                    <button class="btn btn-danger" disabled>Failure...</button>
+                }
+            </div>
+        </div>
+    }
+</div>
+
+
+<div style="text-align: end">
+    <button class="btn btn-secondary" @onclick="PreviousPage">Previous</button>
+    <span>Page @(currentPage + 1) / @Math.Max(totalPageCount, 1)</span>
+    <button class="btn btn-secondary" @onclick="NextPage">Next</button>
+</div>
+
+@code {
+    private string search = "";
+    private int totalCount = 0;
+    private int currentPage = 0;
+    private int totalPageCount => (int)Math.Ceiling(totalCount / 20.0d);
+    private List<QuestModel> quests = new();
+
+    protected override async Task OnInitializedAsync()
+    {
+        totalCount = await srv.GetTotalAvailableQuestCount(search);
+        quests = await srv.GetAvailableQuestsPaginatedForCurrentAdventurer(currentPage, search);
+    }
+
+    protected async Task ChangePage(int newPage)
+    {
+        currentPage = newPage;
+        quests = await srv.GetAvailableQuestsPaginatedForCurrentAdventurer(currentPage, search);
+    }
+
+    protected async Task PreviousPage()
+    {
+        if (currentPage != 0)
+            await ChangePage(currentPage - 1);
+    }
+
+    protected async Task NextPage()
+    {
+        if (currentPage != totalPageCount - 1)
+            await ChangePage(currentPage + 1);
+    }
+
+    private async Task TryQuest(QuestModel quest)
+    {
+        quest.Succeeded = await srv.TryQuestAsync(quest.QuestId);
+        StateHasChanged();
+    }
+
+    private async Task ChangeSearch(ChangeEventArgs args)
+    {
+        var currSearch = args.Value?.ToString();
+        search = currSearch ?? "";
+
+        await Task.Delay(500);
+
+        if (search == currSearch)
+        {
+            currentPage = 0;
+            totalCount = await srv.GetTotalAvailableQuestCount(search);
+            quests = await srv.GetAvailableQuestsPaginatedForCurrentAdventurer(currentPage, search);
+        }
+    }
+}
+
